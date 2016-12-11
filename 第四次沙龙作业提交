@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1" bgcolor="black" align="center" style="width: 290px; height: 180px;">
+    <tr>
+        <td colspan="5">
+            <input type="text" value="" id="input1" style="width: 280px;height: 20px;">
+            <input type="text" value="0" id="input2" style="width: 280px;height: 50px; font-size: 35px;">
+        </td>
+    </tr>
+    <tr>
+        <td><input type="button" value="7" onclick="kick('7')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="8" onclick="kick('8')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="9" onclick="kick('9')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="+" onclick="kick('+')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="%" onclick="kick('%')" style="width: 60px; height: 40px; font-size: 35px;">
+    </tr>
+    <tr>
+        <td><input type="button" value="4" onclick="kick('4')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="5" onclick="kick('5')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="6" onclick="kick('6')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="-" onclick="kick('-')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="." onclick="kick('.')" style="width: 60px; height: 40px; font-size: 35px;" >
+    </tr>
+    <tr>
+        <td><input type="button" value="1" onclick="kick('1')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="2" onclick="kick('2')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="3" onclick="kick('3')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="*" onclick="kick('*')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="C" onclick="kick('C')" style="width: 60px; height: 40px; font-size: 35px;">
+    </tr>
+    <tr>
+        <td><input type="button" value="0" onclick="kick('0')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td colspan="2"><input type="button" value="=" onclick="kick('=')" style="width: 130px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="/" onclick="kick('/')" style="width: 60px; height: 40px; font-size: 35px;">
+        <td><input type="button" value="del" onclick="kick('del')" style="width: 60px; height: 40px; font-size: 35px;">
+    </tr>
+</table>
+</body>
+<script>
+    var showInput =document.getElementById("input2");
+    var A="*";
+    var B="0.01";
+    var tempStr="";
+    var clacType="";
+    var isClear=false;
+    var isContinue=true;
+    function kick(clickValue) {
+        switch (clickValue) {
+            case"=":
+                if (tempStr != "" && clacType != "") {
+                    showInput.value = clac(tempStr, showInput.value, clacType);
+                    isContinue = false;
+                    clacType = "";
+                }
+                break;
+            case"C":
+                clacType="";
+                tempStr="";
+                isClear=false;
+                showInput.value="0";
+                break;
+            case"+":
+            case"-":
+            case"*":
+            case"/":
+                if (clacType != "" && !isContinue) {
+                    tempStr = clac(tempStr, showInput.value, clacType);
+                    clacType = clickValue;
+                    isClear = true;
+                }
+                else {
+                    tempStr = showInput.value;
+                    clacType = clickValue;
+                    isClear = true;
+                }
+                isContinue = true;
+                break;
+            case"%":
+                if (isClear){
+                    showInput.value="";
+                    showInput.value += clickValue;
+                    isClear=false;
+                }
+                else {
+                    showInput.value = clac(showInput.value,B,A)
+                }
+                break;
+            case".": {
+                isContinue = false;
+                showInput.value += clickValue;
+                break;
+            }
+            case"del":{
+                isContinue=false;
+                showInput.value=del(showInput.value);
+                break;
+            }
+            default://普通的数字按钮点击
+                showInput.value = showInput.value == "0" ? "" : showInput.value;
+                isContinue=false;
+                if (isClear) {
+                    showInput.value = "";
+                    showInput.value += clickValue;
+                    isClear = false;
+                }
+                else {
+                    showInput.value += clickValue;//类似于1+1=11
+                }
+                break;
+        }
+        }
+                function clac(num1,num2,Type) {
+                    switch (Type) {
+                        case"+": {
+                            return (Number(num1) + Number(num2));
+                        }
+                        case"-": {
+                            return (Number(num1) - Number(num2));
+                        }
+                        case"*": {
+                            return (Number(num1) * Number(num2));
+                        }
+                        case"/": {
+                            return (Number(num1) / Number(num2));
+                        }
+                        default:
+                            break;
+                    }
+                }
+    function del(str){
+        return str.substr(0,str.length-1);
+    }
+</script>
+</html>
