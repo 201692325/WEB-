@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+    body {
+    background: black;
+    }
+
+    div {
+    border: 1px solid black;
+    background: white;
+    }
+
+    .avatar {
+    width: 128px;
+    height: 128px;
+    background: dodgerblue;
+    display:inline-block;
+    position:relative;
+    top:-22px;
+
+    }
+
+    .name {
+    width: 128px;
+    height: 20px;
+    display:block;
+    position:relative;
+    top:-25px;
+    }
+
+    .profile {
+    width: 300px;
+    height: 150px;
+    background: palevioletred;
+    display:inline-block;
+    position:relative;
+    left:-8px;
+    </style>
+</head>
+<body>
+<div class="avatar"></div>
+<div class="profile"></div>
+<div class="name"></div>
+</body>
+</html>
